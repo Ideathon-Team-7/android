@@ -3,6 +3,7 @@ package com.example.idea_team7
 import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +33,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
     }
 
     private fun initView() {
@@ -45,9 +45,14 @@ class HomeFragment : Fragment() {
         binding.addressLayout.error = if (!validAddress()) "유투브 주소를 입력해주세요" else null
 
         var address = binding.addressEt.text.toString().trim()
+        var id = extractVideoId(address)
+
+        Log.d("HomeFragment", id)
+
         val adsSpf = requireActivity().getSharedPreferences("Address", MODE_PRIVATE)
         adsSpf.edit {
             putString("address", address)
+            putString("id", id)
             commit()
         }
 
@@ -57,5 +62,11 @@ class HomeFragment : Fragment() {
 //        (context as MainActivity).supportFragmentManager.beginTransaction()
 //            .addToBackStack(null)
 //            .commit()
+    }
+
+    fun extractVideoId(url: String): String {
+        val pattern = "(?<=v=)[a-zA-Z0-9_-]+".toRegex()
+        val matchResult = pattern.find(url)
+        return matchResult?.value ?: ""
     }
 }
