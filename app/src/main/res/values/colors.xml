@@ -15,4 +15,9 @@
     <color name="blue">#0054BD</color>
     <color name="purple">#4D9D8CD8</color>
     <color name="deep_purple">#673AB7</color>
+    <color name="custom">#d9534f</color>
+    <color name="ured">#424242</color>
+    <color name="selected_button_background">#BD4848</color>
+    <color name="unselected_button_background">#424242</color>
+    <color name="unselected_button_text">#868686</color>
 </resources>
